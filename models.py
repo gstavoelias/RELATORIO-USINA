@@ -35,6 +35,7 @@ class TcuData(Base):
             "tcu_id": self.tcu_id,
             "datetime": self.datetime.strftime("%Y-%m-%d %H:%M:%S.%f"),
             "tcu_datetime": self.tcu_datetime.strftime("%Y-%m-%d %H:%M:%S.%f"),
+            "status_id": self.status_id,
             "angular_position": self.angular_position,
             "target_angle": self.target_angle
         }

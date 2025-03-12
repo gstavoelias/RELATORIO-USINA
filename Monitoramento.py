@@ -7,11 +7,14 @@ from sqlalchemy import create_engine
 from sqlalchemy.engine import URL
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import struct
+import time
 
 usinas = {
-    "Bebedouro": "http://10.8.0.9:8087/api/v1.0/",
-    "Tangará da Serra":  "http://10.8.0.13:8087/api/v1.0/",
-    "Loanda": "http://10.8.0.26:8087/api/v1.0/"
+    "Bebedouro": {"host": "10.8.0.9", "password": "Stemis%%2024"},
+    "Tangará da Serra":  {"host": "10.8.0.13", "password": "1234"},
+    "Loanda": {"host": "10.8.0.26", "password": "Stemis%%2022"},
+    "Ilha das Palmas": {"host": "10.8.0.28", "password": "Stemis%%2022"}
 }
 
 if "usina" not in st.session_state:
@@ -29,6 +32,21 @@ st.set_page_config(
     layout="wide"
 )
 
+with st.sidebar:
+    st.image("assets/logo-dark.png")
+    with st.expander("Comandos LoRa"):
+        if st.button("TIMESTAMP"):
+            timestamp = float(int(time.time())) 
+            hex_representation = struct.unpack(">I", struct.pack(">f", timestamp))[0] 
+            st.write(f"e1{hex_representation:08x}")
+        latitude = st.text_input("Latitude", "0")
+        longitude = st.text_input("Longitude", "0")
+        if st.button("POSIÇÃO"):
+            latitude_res = struct.unpack(">I", struct.pack(">f", float(latitude)))[0] 
+            longitude_res = struct.unpack(">I", struct.pack(">f", float(longitude)))[0]
+            st.write("Latitude: ", f"01{latitude_res:08x}")
+            st.write("Longitude: ", f"02{longitude_res:08x}")
+
 st.title("MONITORAMENTO DE USINAS TECSCI")
 
 with st.container(border=False):
@@ -38,8 +56,8 @@ with st.container(border=False):
         DB_CONNECTION = URL.create(
         drivername="postgresql",
         username="postgres",
-        password="Stemis%%2022",
-        host="10.8.0.26",
+        password= usinas[usina_selecionada]["password"],
+        host= usinas[usina_selecionada]["host"],
         port=5432,
         database="stemis"
         )
@@ -58,8 +76,8 @@ with st.expander("VER TCUs DA USINA"):
         st.session_state["df_tcus"] = pd.DataFrame(st.session_state["tcus"])
         fig = go.Figure()
         fig.add_trace(go.Scatter(
-            x=st.session_state["df_tcus"]["latitude"],
-            y=st.session_state["df_tcus"]["longitude"], 
+            x=st.session_state["df_tcus"]["longitude"],
+            y=st.session_state["df_tcus"]["latitude"], 
             text=st.session_state["df_tcus"]["name"],
             textposition="top center",
             mode="markers", 
