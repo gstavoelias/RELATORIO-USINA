@@ -1,3 +1,2 @@
-postgresql-client
 psycopg2==2.9.10
 sqlalchemy==2.0.38
