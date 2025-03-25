@@ -14,7 +14,8 @@ usinas = {
     "Bebedouro": {"host": "10.8.0.9", "password": "Stemis%%2024"},
     "Tangará da Serra":  {"host": "10.8.0.13", "password": "1234"},
     "Loanda": {"host": "10.8.0.26", "password": "Stemis%%2022"},
-    "Ilha das Palmas": {"host": "10.8.0.28", "password": "Stemis%%2022"}
+    "Ilha das Palmas": {"host": "10.8.0.28", "password": "Stemis%%2022"},
+    "Bálsamo": {"host": "10.8.0.36", "password": "Stemis%%2022"}
 }
 
 if "usina" not in st.session_state:

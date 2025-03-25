@@ -14,3 +14,4 @@ st.title("TUTORIAL DE USO DO CHIRPSTACK")
 
 st.header("1️⃣ Acessando o Chirpstack")
 st.write("Para acessar o Chirpstack, acesse o IP da Usina na porta 8080. Em seguida, faça o login com as credenciais admin e admin.")
+st.image("assets/print_1.png")
