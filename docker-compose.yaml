@@ -1,0 +1,28 @@
+services:
+  app:
+    container_name: plan-report
+    image: tecsci/plan-report
+    ports:
+      - 8501:8501
+    network_mode: "host"
+    deploy:
+      mode: replicated
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 1G
+        reservations:
+          cpus: "0.2"
+          memory: 200M
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      update_config:
+        parallelism: 1
+        delay: 10s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
