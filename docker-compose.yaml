@@ -1,6 +1,6 @@
 services:
   app:
-    container_name: plan-report
+    container_name: plant-report
     image: tecsci/plant-report
     ports:
       - 8501:8501
