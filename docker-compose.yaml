@@ -1,7 +1,7 @@
 services:
   app:
     container_name: plan-report
-    image: tecsci/plan-report
+    image: tecsci/plant-report
     ports:
       - 8501:8501
     network_mode: "host"
